@@ -9,6 +9,7 @@ import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBPanel
 import com.intellij.ui.content.ContentFactory
 import com.github.maxsg5.tablad.MyBundle
+import com.github.maxsg5.tablad.panels.TabsPanel
 import com.github.maxsg5.tablad.services.MyProjectService
 import javax.swing.JButton
 
@@ -20,9 +21,12 @@ class MyToolWindowFactory : ToolWindowFactory {
     }
 
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
-        val myToolWindow = MyToolWindow(toolWindow)
-        val content = ContentFactory.getInstance().createContent(myToolWindow.getContent(), null, false)
+        val panel = TabsPanel(project, toolWindow.disposable)
+        val content = ContentFactory.getInstance().createContent(panel.component, null, false)
         toolWindow.contentManager.addContent(content)
+        // Title-bar buttons: standard IntelliJ Expand-All / Collapse-All icons,
+        // wired to the tree's TreeExpander.
+        toolWindow.setTitleActions(listOf(panel.expandAllAction, panel.collapseAllAction))
     }
 
     override fun shouldBeAvailable(project: Project) = true

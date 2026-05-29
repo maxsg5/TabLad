@@ -4,16 +4,28 @@
     <name>TabLad</name>
     <vendor>maxsg5</vendor>
     <description><![CDATA[
-        <p><b>TabLad</b> is a repository that provides a pure template to make it easier to create a new plugin project.</p>
-        <p>The main goal of this template is to speed up the setup phase of plugin development for both new and experienced developers by preconfiguring the project scaffold and CI, linking to the proper documentation pages, and keeping everything organized.</p>
+        <p>Adds a <b>Tabs by Project</b> tool window to JetBrains Rider that lists open editor tabs
+        grouped by their owning .NET project, with auto-assigned per-project colors and live
+        error / warning indicators driven by Rider's analyzer.</p>
+        <p>Inspired by Visual Studio's per-project tab grouping; complements but does not replace
+        the native editor tab bar.</p>
     ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.rider</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.maxsg5.tablad.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-        <postStartupActivity implementation="com.github.maxsg5.tablad.startup.MyProjectActivity" />
+        <toolWindow
+                id="TabLad"
+                anchor="right"
+                icon="AllIcons.Toolwindows.ToolWindowProject"
+                factoryClass="com.github.maxsg5.tablad.toolWindow.MyToolWindowFactory"/>
+        <projectConfigurable
+                groupId="appearance"
+                id="com.tabsbyproject.settings"
+                displayName="TabLad Config"
+                instance="com.github.maxsg5.tablad.Config"/>
     </extensions>
 </idea-plugin>
