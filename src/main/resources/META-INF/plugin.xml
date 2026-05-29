@@ -27,5 +27,6 @@
                 id="com.tabsbyproject.settings"
                 displayName="TabLad Config"
                 instance="com.github.maxsg5.tablad.Config"/>
+        <postStartupActivity implementation="com.github.maxsg5.tablad.NativeTabSorter"/>
     </extensions>
 </idea-plugin>
